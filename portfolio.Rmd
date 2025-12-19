@@ -1,0 +1,47 @@
+---
+title: "Portfolio Optimization with Domain Knowledge"
+author: "Mustafa M. Ali"
+subtitle: 'Dec. 18, 2025'
+execute:
+  eval: false
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+sansfont: Georgia
+mainfont: Georgia
+format: pdf
+---
+
+\vspace{0.25cm}
+
+```{r, warning=FALSE, error=FALSE}
+library(tidyverse)
+library(patchwork)
+library(ggridges)
+library(tidymodels)
+library(ggrepel)
+library(readr)
+theme_set(theme_bw())
+
+companies_df <- read_csv("Data/sp500_companies.csv")
+index_df <- read_csv("Data/sp500_index.csv")
+stocks_df <- read_csv("Data/sp500_stocks.csv")
+
+head(companies_df)
+head(index_df)
+head(stocks_df)
+```
+
+
+```{r}
+
+
+
+
+
+```
+
+
+
