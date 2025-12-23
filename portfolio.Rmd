@@ -88,12 +88,16 @@ scaled_companies_quote <- scaled_companies_quote |> filter(if_all(-c(`Trade Time
 ## Euclidean distance
 ```{r}
 finSimilarity_df <- data.frame()
+cosine_sim <- function(A, B) {
+  return(sum(A*B) / (sqrt(sum(A^2)) * sqrt(sum(B^2))))
+}
 
 for (row1 in 1:nrow(scaled_companies_quote)){
   for (row2 in 1:nrow(scaled_companies_quote)){
     if (scaled_companies_quote[row1, "Symbol"] != scaled_companies_quote[row2, "Symbol"]) {
-      val = dist(scaled_companies_quote[c(row1, row2),3:ncol(scaled_companies_quote)])
-      finSimilarity_df <- finSimilarity_df |> rbind(data.frame(Ticker1 = scaled_companies_quote[row1, "Symbol"], Ticker2 = scaled_companies_quote[row2, "Symbol"], FinSimilarity = val))
+      val1 = dist(scaled_companies_quote[c(row1, row2),3:ncol(scaled_companies_quote)])
+      val2 = cosine_sim(scaled_companies_quote[row1,3:ncol(scaled_companies_quote)], scaled_companies_quote[row1,3:ncol(scaled_companies_quote)])
+      finSimilarity_df <- finSimilarity_df |> rbind(data.frame(Ticker1 = scaled_companies_quote[row1, "Symbol"], Ticker2 = scaled_companies_quote[row2, "Symbol"], euclDist = val1, cosiSim = val2))
     }
   }
 }
@@ -104,9 +108,7 @@ finSimilarity_df |> rename(Ticker1=Symbol, Ticker2=Symbol.1)
 
 ## Cosine similarity
 ```{r}
-cosine_sim <- function(A, B) {
-  return(sum(A*B) / (sqrt(sum(A^2)) * sqrt(sum(B^2))))
-}
+
 
 ```
 
